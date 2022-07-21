@@ -58,7 +58,7 @@ class Hole{
             y: canvas.width
         }
         this.width = canvas.width / 10 + 5
-        this.height = 175
+        this.height = canvas.height / 2.5
     }
     draw(){
         c.fillStyle = 'deepskyblue'
@@ -146,17 +146,19 @@ function animate() {
         title.draw()
         start.draw()
     }
-    for (i in obstacles) {
-            if (player.position.x + player.width > obstacles[i].position.x && player.position.x < obstacles[i].position.x + obstacles[i].width && !(player.position.y + player.height > holes[i].position.y && player.position.y < holes[i].position.y + holes[i].height)){
+    for (i in holes) {
+        if (player.position.x + player.width > holes[i].position.x && player.position.x < holes[i].position.x + holes[i].width){
+            if (player.position.y < holes[i].position.y || player.position.y + player.height > holes[i].position.y + holes[i].height){
                 window.location.reload()
             }
+        }
     }
 }
 animate()
 setInterval(function(){
     obstacles.push(new Obstacle())
     holes.push(new Hole())
-}, 2300)
+}, canvas.width / .5)
 addEventListener('keydown', ({keyCode}) => {
     switch(keyCode) {
         case 32:
@@ -173,6 +175,10 @@ addEventListener('keyup', ({keyCode}) => {
             break;
     }
 })
+function findMousePos(event){
+    if (mouseControls)
+        player.position.y = event.pageY
+}
 addEventListener('mousedown', () => {
     keys.space.pressed = true
     going = true
@@ -180,6 +186,7 @@ addEventListener('mousedown', () => {
 addEventListener('mouseup', () => {
     keys.space.pressed = false
 })
+addEventListener('mousemove', findMousePos, false)
 setInterval(function(){
     score++
 }, 100)
