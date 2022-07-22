@@ -123,9 +123,9 @@ function animate() {
             hole.position.x--
             hole.draw()
             if (player.position.x + player.width > hole.position.x && player.position.x < hole.position.x + hole.width){
-            if (player.position.y < hole.position.y || player.position.y + player.height > hole.position.y + hole.height){
-                window.location.reload()
-            }
+                if (player.position.y < hole.position.y || player.position.y + player.height > hole.position.y + hole.height){
+                    window.location.reload()
+                }
             }
             while (hole.position.y + hole.height > canvas.height){
                 hole.position.y = Math.floor(Math.random() * canvas.height)
