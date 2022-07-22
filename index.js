@@ -144,7 +144,7 @@ function animate() {
             player.velocity.y = 0
         }
         if (keys.space.pressed){
-            player.velocity.y = 3
+            player.velocity.y = canvas.height / 150
         }
         player.draw()
         theScore.draw()
