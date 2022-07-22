@@ -3,6 +3,7 @@ var score = 0
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 canvas.width = innerWidth
+var mouseControls = 0
 canvas.height = innerHeight
 class Background {
     constructor() {
@@ -121,6 +122,11 @@ function animate() {
         holes.forEach(hole => {
             hole.position.x--
             hole.draw()
+            if (player.position.x + player.width > hole.position.x && player.position.x < hole.position.x + hole.width){
+            if (player.position.y < hole.position.y || player.position.y + player.height > hole.position.y + hole.height){
+                window.location.reload()
+            }
+            }
             while (hole.position.y + hole.height > canvas.height){
                 hole.position.y = Math.floor(Math.random() * canvas.height)
             if (hole.position.x + hole.width <= 0){
@@ -145,13 +151,6 @@ function animate() {
     }else{
         title.draw()
         start.draw()
-    }
-    for (i in holes) {
-        if (player.position.x + player.width > holes[i].position.x && player.position.x < holes[i].position.x + holes[i].width){
-            if (player.position.y < holes[i].position.y || player.position.y + player.height > holes[i].position.y + holes[i].height){
-                window.location.reload()
-            }
-        }
     }
 }
 animate()
