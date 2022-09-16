@@ -134,7 +134,7 @@ function animate() {
             }
         }
         })
-        player.velocity.y -= .1
+        player.velocity.y -= .07
         player.position.y -= player.velocity.y
         if (player.position.y + player.height >= canvas.height){
             player.position.y = canvas.height - player.height
