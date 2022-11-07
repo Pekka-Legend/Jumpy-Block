@@ -1,9 +1,9 @@
 var going = false
 var score = 0
+var mouseControls = 0
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 canvas.width = innerWidth
-var mouseControls = 0
 canvas.height = innerHeight
 class Background {
     constructor() {
@@ -13,9 +13,10 @@ class Background {
         }
         this.width = canvas.width
         this.height = canvas.height
+        this.color = 'deepskyblue'
     }
     draw() {
-        c.fillStyle = 'deepskyblue'
+        c.fillStyle = this.color
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
@@ -32,9 +33,10 @@ class Player {
       this.size = canvas.width / 20
       this.width = this.size
       this.height = this.size
+      this.color = 'yellow'
     }
     draw() {
-        c.fillStyle = 'yellow'
+        c.fillStyle = this.color
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
@@ -46,9 +48,10 @@ class Obstacle{
         }
         this.width = canvas.width / 10
         this.height = canvas.height
+        this.color = 'chartreuse'
     }
     draw(){
-        c.fillStyle = 'chartreuse'
+        c.fillStyle = this.color
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
@@ -60,9 +63,10 @@ class Hole{
         }
         this.width = canvas.width / 10 + 5
         this.height = canvas.height / 2.5
+        this.color = 'deepskyblue'
     }
     draw(){
-        c.fillStyle = 'deepskyblue'
+        c.fillStyle = this.color
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
@@ -124,6 +128,14 @@ function animate() {
             hole.draw()
             if (player.position.x + player.width > hole.position.x && player.position.x < hole.position.x + hole.width){
                 if (player.position.y < hole.position.y || player.position.y + player.height > hole.position.y + hole.height){
+                    player.color = 'black'
+                    obstacles.forEach(obstacle =>{
+                        obstacle.color = 'black'
+                    })
+                    holes.forEach(hole =>{
+                        hole.color = 'black'
+                    })
+                    background.color = 'black'
                     window.location.reload()
                 }
             }
@@ -134,7 +146,7 @@ function animate() {
             }
         }
         })
-        player.velocity.y -= .07
+        player.velocity.y -= .1
         player.position.y -= player.velocity.y
         if (player.position.y + player.height >= canvas.height){
             player.position.y = canvas.height - player.height
